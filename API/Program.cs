@@ -1,3 +1,7 @@
+using API.Interfaces;
+using API.Repositories;
+using API.Services;
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +11,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:4200");
+                          policy.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyOrigin();
                       });
 });
 
 // Add services to the container.
+builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+
 builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();

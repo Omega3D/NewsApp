@@ -10,10 +10,7 @@ import { NewsService } from '../_services/news.service';
 export class HomeComponent implements OnInit {
   mainNews: Article[] = [];
   randomNews: Article[] = [];
-  currentPage: number = 1;
-  pageSize: number = 10;
-  totalPages: number = 1;
-
+  
   constructor(private service: NewsService) {}
 
   ngOnInit() {
