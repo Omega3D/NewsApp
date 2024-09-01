@@ -14,8 +14,18 @@ export class NewsService {
 
   getNews(): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.url}/get-news`);
-    }
-  
-              
+  }
+
+  getNewsByType(type: string): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.url}/get-news-by/${type}`);
+  }
+
+  splitNews(news: Article[], percentage: number = 0.65): { mainNews: Article[], randomNews: Article[] } {
+    const splitIndex = Math.floor(news.length * percentage);
+    return {
+      mainNews: news.slice(0, splitIndex),
+      randomNews: news.slice(splitIndex)
+    };
+  }              
 }
 

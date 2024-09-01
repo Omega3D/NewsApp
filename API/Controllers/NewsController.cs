@@ -23,8 +23,5 @@ namespace API.Controllers
         {
             return await _newsService.GetNewsByType(type);
         }
-
-
-
     }
 }

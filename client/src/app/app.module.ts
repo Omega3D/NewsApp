@@ -7,13 +7,15 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RemoveUnwantedTextPipe } from './_helpers/remove-unwanted-text.pipe';
+import { NewsComponent } from './news/news.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     NavComponent, 
     HomeComponent,
-    RemoveUnwantedTextPipe
+    RemoveUnwantedTextPipe,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
