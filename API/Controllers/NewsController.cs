@@ -1,5 +1,8 @@
-﻿using API.Interfaces;
+﻿using API.Helpers;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace API.Controllers
 {
@@ -13,15 +16,15 @@ namespace API.Controllers
         }
 
         [HttpGet("get-news")]
-        public async Task<IActionResult> GetAllNewsJson()
+        public async Task<IActionResult> GetAllNewsJson([FromQuery] PaginationQuery query)
         {
-            return await _newsService.GetAllNews();
+            return await _newsService.GetAllNews(query);
         }
 
         [HttpGet("get-news-by/{type}")]
-        public async Task<IActionResult> GetNewsByType(string type)
+        public async Task<IActionResult> GetNewsByType(string type, [FromQuery] PaginationQuery query)
         {
-            return await _newsService.GetNewsByType(type);
+            return await _newsService.GetNewsByType(type, query);
         }
     }
 }

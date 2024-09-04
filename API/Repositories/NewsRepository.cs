@@ -4,6 +4,7 @@ using NewsAPI.Constants;
 using NewsAPI.Models;
 using NewsAPI;
 using API.Controllers;
+using API.Helpers;
 
 namespace API.Repositories
 {
@@ -13,14 +14,12 @@ namespace API.Repositories
 
         private readonly string? _apiKey;
 
-        
         public NewsRepository(IConfiguration configuration)
         {
             _apiKey = configuration["NewsApi:ApiKey"];
         }
         
-
-        public async Task<IActionResult> GetAllNews()
+        public async Task<IActionResult> GetAllNews([FromQuery] PaginationQuery query)
         {
             try
             {
@@ -31,7 +30,7 @@ namespace API.Repositories
                     Q = EveryNewsType,
                     SortBy = SortBys.Relevancy,
                     Language = Languages.EN,
-                    PageSize = 100,
+                    PageSize = 100
                 });
 
                 if (articlesResponse.Status == Statuses.Ok && articlesResponse != null)
@@ -40,7 +39,14 @@ namespace API.Repositories
                         Article.Url != "https://removed.com" && Article.UrlToImage != null
                     ).ToList();
 
-                    return Ok(filteredArticles);
+                    var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+                    return Ok(new
+                    {
+                        TotalItems = filteredArticles.Count,
+                        Articles = filteredArticles.Skip(skipNumber).Take(query.PageSize).ToList()
+                    });
+
                 }
                 else
                 {
@@ -53,7 +59,7 @@ namespace API.Repositories
             }
         }
 
-        public async Task<IActionResult> GetNewsByType(string newsType)
+        public async Task<IActionResult> GetNewsByType(string newsType, [FromQuery] PaginationQuery query)
         {
             try
             {
@@ -73,7 +79,17 @@ namespace API.Repositories
                         Article.Url != "https://removed.com" && Article.UrlToImage != null
                     ).ToList();
 
-                    return Ok(filteredArticles);
+                    var totalArticles = filteredArticles.Count;
+
+                    var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+                    var pagedArticles = filteredArticles.Skip(skipNumber).Take(query.PageSize).ToList();
+
+                    return Ok(new
+                    {
+                        TotalItems = filteredArticles.Count,
+                        Articles = pagedArticles
+                    });
                 }
                 else
                 {

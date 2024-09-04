@@ -1,3 +1,36 @@
-.active-link {
-    color: #1d4ed8; /* Tailwind's blue-700 */
-  }
+/* Add this to your global styles or component CSS file */
+
+.text-blue-700 {
+  color: #1d4ed8;
+  /* Blue color for selected state */
+}
+
+a:hover {
+  color: #1d4ed8;
+  /* Blue color for hover state */
+}
+
+/* Ensure styles are applied correctly when link is active */
+.router-link-active {
+  color: #1d4ed8 !important;
+  /* Ensure active link stays blue */
+}
+
+/* Основні стилі для світлої теми */
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-theme .bg-white {
+  background-color: #1f2937; /* Темніший фон для темної теми */
+}
+
+.dark-theme .text-gray-900 {
+  color: #e5e7eb; /* Світліший текст для темної теми */
+}

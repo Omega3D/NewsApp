@@ -1,31 +1,40 @@
 <div class="flex mt-20">
-  <!-- Main News Section -->
-  <div class="w-full md:w-2/3 p-4">
-      <div *ngIf="mainNews.length > 0">
-          <div *ngFor="let article of mainNews" class="mb-8">
-              <h1 class="text-4xl font-extrabold text-gray-900">{{article.source.name}}</h1>
-              <h3 class="text-lg font-semibold">{{article.title}}</h3>
-              <p class="text-base font-semibold text-gray-600">{{article.description}}</p>
-              <img src="{{article.urlToImage}}" alt="Image" class="w-full h-auto mt-2 mb-2">
-              <p class="text-gray-500">Publisher: {{article.author}}</p>
-              <p class="text-gray-500">{{article.publishedAt | date:'short'}}</p>
-              <p class="text-base font-semibold text-gray-600">
-                  {{article.content | removeUnwantedText | slice:0:200}}
-                  <a [href]="article.url" target="_blank" class="text-blue-500 underline">Read more</a>
-              </p>
-          </div>
-      </div>
-  </div>
+    <!-- Main News Section -->
+    <div class="w-full md:w-2/3 p-4">
+        <div *ngIf="mainNews.length > 0">
+            <div *ngFor="let article of mainNews" class="mb-8">
+                <h1 class="text-4xl font-extrabold text-gray-900">{{article.source.name}}</h1>
+                <h3 class="text-lg font-semibold">{{article.title}}</h3>
+                <p class="text-base font-semibold text-gray-600">{{article.description}}</p>
+                <img src="{{article.urlToImage}}" alt="Image" class="w-full h-auto mt-2 mb-2">
+                <p class="text-gray-500">Publisher: {{article.author}}</p>
+                <p class="text-gray-500">{{article.publishedAt | date:'short'}}</p>
+                <p class="text-base font-semibold text-gray-600">
+                    {{article.content | removeUnwantedText | slice:0:200}}
+                    <a [href]="article.url" target="_blank" class="text-blue-500 underline">Read more</a>
+                </p>
+            </div>
+        </div>
+    </div>
 
-  <!-- Random News Section -->
-  <div class="w-full md:w-1/3 p-4 bg-gray-100">
-      <div *ngIf="randomNews.length > 0">
-          <div *ngFor="let article of randomNews" class="mb-4">
-              <h1 class="text-md font-semibold">{{article.source.name}}</h1>
-              <h3 class="text-md font-semibold">{{article.title}}</h3>
-              <p class="text-gray-600">{{article.description}}</p>
-              <a [href]="article.url" target="_blank" class="text-blue-500 underline">Read more</a>
-          </div>
-      </div>
-  </div>
+    <!-- Random News Section -->
+    <div class="w-full md:w-1/3 p-4 bg-gray-100">
+        <div *ngIf="randomNews.length > 0">
+            <div *ngFor="let article of randomNews" class="mb-4">
+                <h1 class="text-md font-semibold">{{article.source.name}}</h1>
+                <h3 class="text-md font-semibold">{{article.title}}</h3>
+                <p class="text-gray-600">{{article.description}}</p>
+                <a [href]="article.url" target="_blank" class="text-blue-500 underline">Read more</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <app-pagination 
+        [currentPage]="currentPage" 
+        [pageSize]="pageSize" 
+        [totalItems]="totalItems"
+        (pageChange)="onPageChange($event)">
+    </app-pagination>
 </div>

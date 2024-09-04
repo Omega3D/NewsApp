@@ -8,6 +8,11 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RemoveUnwantedTextPipe } from './_helpers/remove-unwanted-text.pipe';
 import { NewsComponent } from './news/news.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule } from '@angular/material/icon';
+import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -15,15 +20,21 @@ import { NewsComponent } from './news/news.component';
     NavComponent, 
     HomeComponent,
     RemoveUnwantedTextPipe,
-    NewsComponent
+    NewsComponent,
+    ThemeToggleComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    MatIconModule,
+    NgxPaginationModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
-﻿using API.Interfaces;
+﻿using API.Helpers;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Services
@@ -12,14 +13,15 @@ namespace API.Services
             _repository = repository;
         }
 
-        public Task<IActionResult> GetAllNews()
+        public Task<IActionResult> GetAllNews(PaginationQuery query)
         {
-            return _repository.GetAllNews();
+            return _repository.GetAllNews(query);
         }
 
-        public Task<IActionResult> GetNewsByType(string newsType)
+        public Task<IActionResult> GetNewsByType(string newsType, PaginationQuery query)
         {
-            return _repository.GetNewsByType(newsType);
+            return _repository.GetNewsByType(newsType, query);
         }
+
     }
 }

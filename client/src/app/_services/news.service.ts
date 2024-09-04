@@ -12,20 +12,20 @@ export class NewsService {
 
   constructor(private http: HttpClient) {}
 
-  getNews(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.url}/get-news`);
+  getNews(pageNumber: number = 1, pageSize: number = 10): Observable<{ totalItems: number, articles: Article[] }> {
+    return this.http.get<{ totalItems: number, articles: Article[] }>(`${this.url}/get-news?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
+  
+  getNewsByType(type: string, pageNumber: number = 1, pageSize: number = 10): Observable<{ totalItems: number, articles: Article[] }> {
+    return this.http.get<{ totalItems: number, articles: Article[] }>(`${this.url}/get-news-by/${type}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  getNewsByType(type: string): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.url}/get-news-by/${type}`);
-  }
-
-  splitNews(news: Article[], percentage: number = 0.65): { mainNews: Article[], randomNews: Article[] } {
-    const splitIndex = Math.floor(news.length * percentage);
+  splitNews(news: Article[] = []): { mainNews: Article[], randomNews: Article[] } {
+    const splitIndex = Math.floor(news.length * 0.65);
     return {
       mainNews: news.slice(0, splitIndex),
       randomNews: news.slice(splitIndex)
     };
-  }              
+  }
+  
 }
-
