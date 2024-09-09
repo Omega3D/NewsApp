@@ -1,6 +1,4 @@
-using API.Interfaces;
-using API.Repositories;
-using API.Services;
+using API.Extensions;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,8 +16,8 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-builder.Services.AddScoped<INewsService, NewsService>();
-builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration);
 
 builder.Services.AddHttpClient();
 
@@ -33,3 +31,4 @@ app.UseCors(MyAllowSpecificOrigins);
 app.MapControllers();
 
 app.Run();
+

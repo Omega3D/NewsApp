@@ -1,5 +1,6 @@
 ﻿using API.Helpers;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Collections.Generic;
