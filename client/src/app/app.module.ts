@@ -13,16 +13,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptorService } from './_services/jwt-interceptor.service';
+
 
 @NgModule({
   declarations: [
     AppComponent, 
-    NavComponent, 
+    NavComponent,
     HomeComponent,
     RemoveUnwantedTextPipe,
     NewsComponent,
     ThemeToggleComponent,
-    PaginationComponent
+    PaginationComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +40,14 @@ import { PaginationComponent } from './pagination/pagination.component';
     HttpClientModule,
     NgbModule,
     MatIconModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true},
   ],
   bootstrap: [AppComponent]
 })
